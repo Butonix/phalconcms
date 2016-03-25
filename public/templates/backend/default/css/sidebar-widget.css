@@ -1,0 +1,157 @@
+.available-widget .widget_active {
+
+}
+
+.widget-title {
+    padding: 5px;
+    background: #E6E4E5;
+    color: #fff;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+}
+
+.skin-green .widget-title{
+    background-color: #00a65a;
+}
+
+.skin-purple .widget-title{
+    background-color: #605ca8;
+}
+
+.skin-blue .widget-title{
+    background-color: #3c8dbc;
+}
+
+.skin-yellow .widget-title{
+    background-color: #f39c12;
+}
+
+.widget_active_panel {
+    background: #ECF0F5;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.widget-description {
+    padding: 6px 3px 0 3px;
+}
+
+.sidebar:first-child {
+    margin-top: 0;
+}
+
+.sidebar-tile {
+    padding: 5px;
+    background: #E6E4E5;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+}
+
+.sidebar-content {
+    min-height: 150px;
+    position: relative;
+}
+
+.box.box-sidebar, .box.available-widget{
+    border-top: none;
+}
+.box-sidebar.box .box-body .box{
+    border: 1px dashed #d2d6de;
+    box-shadow : none;
+    margin-bottom: 3px;
+}
+.widget_active {
+    padding: 5px;
+}
+
+.portlet-placeholder {
+    border: 1px dotted black;
+    padding: 5px;
+    height: 62px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.form {
+    background: #ffffff;
+    padding: 10px 6px 6px 6px;
+}
+
+.form label {
+    margin-right: 10px !important;
+}
+
+.widget {
+    margin-bottom: 0;
+}
+
+.panel-available-widget {
+    padding: 0 10px 10px 10px;
+}
+
+.widget-description {
+    padding-bottom: 3px;
+    font-style: italic;
+}
+
+.sidebar .col-sm-6 {
+    width: 100% !important;
+}
+
+.sidebar .widget_active:first-child {
+    margin-top: 0px;
+}
+
+.sidebar .widget_active {
+    margin-top: 10px;
+    background: #E6E4E4;
+    border-radius: 3px;
+}
+
+.widget-title:hover {
+    cursor: pointer;
+}
+
+.widget-title span {
+    margin-top: 7px;
+    float: right;
+}
+
+.form input, .form select, .form textarea {
+    max-width: 100%;
+}
+
+.ui-draggable {
+    z-index: 100;
+}
+
+
+@media (max-width: 1200px) {
+    .content .col-sm-3 {
+        width: 50%;
+    }
+}
+
+.panel-sidebar .panel-body {
+    padding: 5px;
+}
+@media (min-width: 768px) and (max-width: 1200px) {
+    .col-sm-6.sidebar-main .col-sm-6{
+        width: 100%;
+    }
+    .col-sm-6.sidebar-main{
+        padding-left: 15px !important;
+    }
+    .sidebar-main .col-sm-6{
+        padding: 0 !important;
+    }
+}
+@media (max-width: 767px) {
+    .sidebar-main {
+        padding: 0 !important;
+    }
+
+    .col-sidebar-first, .col-sidebar-last {
+        padding: 0 !important;
+    }
+}

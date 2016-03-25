@@ -1,0 +1,31 @@
+{
+	"name": "t_template_frontend_name_default",
+	"description": "t_template_frontend_name_default_desc",
+	"uri": "http://phalconcmf.com",
+	"author": "Lexnet.cn",
+	"authorUri": "http://phalconcmf.com",
+	"version": "1.0.0",
+	"tag": "red, lexnet.cn",
+	"config": {
+		"power_by": {
+		   "type": "text",
+		   "value": "Powered by Lexnet.cn"
+		},
+		"design_by": {
+		   "type": "text",
+		   "value": "Lexnet.cn"
+		}
+	},
+	"sidebars": [{
+		"baseName": "sidebar_left",
+		"name": "t_default_sidebar_left"
+	},
+	{
+		"baseName": "sidebar_right",
+		"name": "t_default_sidebar_right"
+	},
+	{
+		"baseName": "sidebar_top",
+		"name": "t_default_sidebar_top"
+	}]
+}
