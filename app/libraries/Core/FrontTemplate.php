@@ -5,8 +5,8 @@
 
 namespace Core;
 
-use Phalcon\Events\Event as PEvent;
-use Phalcon\Mvc\View as PView;
+use Phalcon\Events\Event;
+use Phalcon\Mvc\View;
 
 class FrontTemplate
 {
@@ -28,10 +28,10 @@ class FrontTemplate
     /**
      * After render
      *
-     * @param PEvent $event
-     * @param PView $view
+     * @param Event $event
+     * @param View $view
      */
-    public function afterRender(PEvent $event, PView $view)
+    public function afterRender(Event $event, View $view)
     {
         // Do something
     }
@@ -39,10 +39,10 @@ class FrontTemplate
     /**
      * Before render view
      *
-     * @param PEvent $event
-     * @param PView $view
+     * @param Event $event
+     * @param View $view
      */
-    public function beforeRender(PEvent $event, PView $view)
+    public function beforeRender(Event $event, View $view)
     {
         $defaultTemplate = $view->getDI()->get('config')->frontendTemplate->defaultTemplate;
         $viewDir = APP_PATH . '/templates/frontend/' . $defaultTemplate . '/modules/' . $this->moduleBaseName . '/';

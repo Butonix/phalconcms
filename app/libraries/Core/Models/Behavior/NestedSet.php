@@ -10,7 +10,7 @@ use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Behavior;
 use Phalcon\Mvc\ModelInterface;
 use Phalcon\Mvc\Model\BehaviorInterface;
-use Phalcon\Mvc\Model\Exception as PMMException;
+use Phalcon\Mvc\Model\Exception;
 
 class NestedSet extends Behavior implements BehaviorInterface
 {
@@ -112,7 +112,7 @@ class NestedSet extends Behavior implements BehaviorInterface
             case 'beforeDelete':
             case 'beforeUpdate':
                 if(!$this->ignoreEvent) {
-                    throw new PMMException($message);
+                    throw new Exception($message);
                 }
                 break;
         }
@@ -497,26 +497,26 @@ class NestedSet extends Behavior implements BehaviorInterface
      * Move node as new root.
      *
      * @return boolean
-     * @throws PMMException
+     * @throws Exception
      */
     public function moveAsRoot()
     {
         $owner = $this->getOwner();
 
         if(!$this->hasManyRoots) {
-            throw new PMMException('Many roots mode is off.');
+            throw new Exception('Many roots mode is off.');
         }
 
         if($this->getIsNewRecord()) {
-            throw new PMMException('The node should not be new record.');
+            throw new Exception('The node should not be new record.');
         }
 
         if($this->getIsDeletedRecord()) {
-            throw new PMMException('The node should not be deleted.');
+            throw new Exception('The node should not be deleted.');
         }
 
         if($owner->isRoot()) {
-            throw new PMMException('The node already is root node.');
+            throw new Exception('The node already is root node.');
         }
 
         $this->_db->begin();
@@ -590,18 +590,18 @@ class NestedSet extends Behavior implements BehaviorInterface
      * Deletes node and it's descendants.
      *
      * @return boolean
-     * @throws PMMException
+     * @throws Exception
      */
     public function deleteNode()
     {
         $owner = $this->getOwner();
 
         if($this->getIsNewRecord()) {
-            throw new PMMException('The node cannot be deleted because it is new.');
+            throw new Exception('The node cannot be deleted because it is new.');
         }
 
         if($this->getIsDeletedRecord()) {
-            throw new PMMException('The node cannot be deleted because it is already deleted.');
+            throw new Exception('The node cannot be deleted because it is already deleted.');
         }
 
         $this->_db->begin();
@@ -661,38 +661,38 @@ class NestedSet extends Behavior implements BehaviorInterface
      * @param  int $levelUp
      *
      * @return boolean
-     * @throws PMMException
+     * @throws Exception
      */
     private function moveNode($target, $key, $levelUp)
     {
         $owner = $this->getOwner();
 
         if(!$target) {
-            throw new PMMException('Target node is not defined.');
+            throw new Exception('Target node is not defined.');
         }
 
         if($this->getIsNewRecord()) {
-            throw new PMMException('The node should not be new record.');
+            throw new Exception('The node should not be new record.');
         }
 
         if($this->getIsDeletedRecord()) {
-            throw new PMMException('The node should not be deleted.');
+            throw new Exception('The node should not be deleted.');
         }
 
         if($target->getIsDeletedRecord()) {
-            throw new PMMException('The target node should not be deleted.');
+            throw new Exception('The target node should not be deleted.');
         }
 
         if($owner == $target) {
-            throw new PMMException('The target node should not be self.');
+            throw new Exception('The target node should not be self.');
         }
 
         if($target->isDescendantOf($owner)) {
-            throw new PMMException('The target node should not be descendant.');
+            throw new Exception('The target node should not be descendant.');
         }
 
         if(!$levelUp && $target->isRoot()) {
-            throw new PMMException('The target node should not be root.');
+            throw new Exception('The target node should not be root.');
         }
 
 
@@ -849,34 +849,34 @@ class NestedSet extends Behavior implements BehaviorInterface
      * @param  array $attributes
      *
      * @return boolean
-     * @throws PMMException
+     * @throws Exception
      */
     private function addNode($target, $key, $levelUp, $attributes)
     {
         $owner = $this->getOwner();
 
         if(!$target) {
-            throw new PMMException('The node cannot be inserted because target is not defined.');
+            throw new Exception('The node cannot be inserted because target is not defined.');
         }
 
         if(!$this->getIsNewRecord()) {
-            throw new PMMException('The node cannot be inserted because it is not new.');
+            throw new Exception('The node cannot be inserted because it is not new.');
         }
 
         if($this->getIsDeletedRecord()) {
-            throw new PMMException('The node cannot be inserted because it is deleted.');
+            throw new Exception('The node cannot be inserted because it is deleted.');
         }
 
         if($target->getIsDeletedRecord()) {
-            throw new PMMException('The node cannot be inserted because target node is deleted.');
+            throw new Exception('The node cannot be inserted because target node is deleted.');
         }
 
         if($owner == $target) {
-            throw new PMMException('The target node should not be self.');
+            throw new Exception('The target node should not be self.');
         }
 
         if(!$levelUp && $target->isRoot()) {
-            throw new PMMException('The target node should not be root.');
+            throw new Exception('The target node should not be root.');
         }
 
         if($this->hasManyRoots) {
@@ -900,7 +900,7 @@ class NestedSet extends Behavior implements BehaviorInterface
      * @param  array $whiteList
      *
      * @return boolean
-     * @throws PMMException
+     * @throws Exception
      */
     private function makeRoot($attributes, $whiteList)
     {
@@ -925,7 +925,7 @@ class NestedSet extends Behavior implements BehaviorInterface
             $this->_db->commit();
         } else {
             if(count($owner->roots())) {
-                throw new PMMException('Cannot create more than one root in single root mode.');
+                throw new Exception('Cannot create more than one root in single root mode.');
             }
 
             if($owner->create($attributes, $whiteList) == false) {

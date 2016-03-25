@@ -9,7 +9,7 @@ use Phalcon\Di,
     Phalcon\Mvc\Model\Behavior,
     Phalcon\Mvc\Model\BehaviorInterface,
     Phalcon\Mvc\ModelInterface,
-    Phalcon\Db as PDb;
+    Phalcon\Db;
 
 /**
  * Processing Nested Set Model on Phalcon
@@ -150,7 +150,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
         $nodeInfo = $this->getNodeInfo($id);
         $parentInfo = $this->getNodeInfo($nodeInfo['parents']);
         $sql = 'SELECT * FROM ' . $this->_table . ' WHERE lft < ' . $nodeInfo['lft'] . ' AND parents = ' . $nodeInfo['parents'] . ' ORDER BY lft DESC LIMIT 1';
-        $nodeBrother = $this->_db->fetchOne($sql, PDb::FETCH_ASSOC);
+        $nodeBrother = $this->_db->fetchOne($sql, Db::FETCH_ASSOC);
 
         if(!empty($nodeBrother)) {
             $options = ['position' => 'before', 'brother_id' => $nodeBrother['id']];
@@ -174,7 +174,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
         $parentInfo = $this->getNodeInfo($nodeInfo['parents']);
 
         $sql = 'SELECT * FROM ' . $this->_table . ' WHERE lft > ' . $nodeInfo['lft'] . ' AND parents = ' . $nodeInfo['parents'] . ' ORDER BY lft ASC LIMIT 1';
-        $nodeBrother = $this->_db->fetchOne($sql, PDb::FETCH_ASSOC);
+        $nodeBrother = $this->_db->fetchOne($sql, Db::FETCH_ASSOC);
 
         if(!empty($nodeBrother)) {
             $options = ['position' => 'after', 'brother_id' => $nodeBrother['id']];
@@ -243,7 +243,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
     protected function getNodeByLeft($left)
     {
         $sql = 'SELECT * FROM ' . $this->_table . ' WHERE lft = ' . $left;
-        return $this->_db->fetchOne($sql, PDb::FETCH_ASSOC);
+        return $this->_db->fetchOne($sql, Db::FETCH_ASSOC);
     }
 
     /**
@@ -308,7 +308,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
 
         $sql .= ' ORDER BY node.lft';
 
-        return $this->_db->fetchAll($sql, PDb::FETCH_ASSOC);
+        return $this->_db->fetchAll($sql, Db::FETCH_ASSOC);
     }
 
     /**
@@ -736,7 +736,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
     public function totalNode($parents = 0)
     {
         $sql = 'SELECT lft, rgt FROM ' . $this->_table . ' WHERE parents = ' . $parents;
-        $result = $this->_db->fetchOne($sql, PDb::FETCH_ASSOC);
+        $result = $this->_db->fetchOne($sql, Db::FETCH_ASSOC);
         $lft = $result['lft'];
         $rgt = $result['rgt'];
         $total = ($rgt - $lft + 1) / 2;
@@ -805,7 +805,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
         $nodeInfo = $this->getNodeInfo($this->_id);
 
         $sql = 'SELECT id FROM ' . $this->_table . ' WHERE parents = ' . $nodeInfo['id'] . ' ORDER BY lft ASC';
-        $childIds = $this->_db->fetchOne($sql, PDb::FETCH_NUM);
+        $childIds = $this->_db->fetchOne($sql, Db::FETCH_NUM);
 
         rsort($childIds);
 
@@ -900,7 +900,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
 
         if($exclude_id != null && (int)$exclude_id > 0) {
             $sqlExclude = '	SELECT lft, rgt FROM ' . $this->_table . ' WHERE id = ' . $exclude_id;
-            $rowExclude = $this->_db->fetchOne($sqlExclude, PDb::FETCH_OBJ);
+            $rowExclude = $this->_db->fetchOne($sqlExclude, Db::FETCH_OBJ);
             $lftExclude = $rowExclude->lft;
             $rgtExclude = $rowExclude->rgt;
         }
@@ -913,7 +913,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
 
         $sqlItems .= ' ORDER BY node.lft ';
 
-        $rows = $this->_db->fetchAll($sqlItems, PDb::FETCH_OBJ);
+        $rows = $this->_db->fetchAll($sqlItems, Db::FETCH_OBJ);
 
         $dataArr = [];
         if($rows && isset($rowExclude)) {
@@ -953,7 +953,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
 
         if($exclude_id != null && (int)$exclude_id > 0) {
             $sqlExclude = '	SELECT lft, rgt FROM ' . $this->_table . ' WHERE id = ' . $exclude_id;
-            $rowExclude = $this->_db->fetchOne($sqlExclude, PDb::FETCH_ASSOC);
+            $rowExclude = $this->_db->fetchOne($sqlExclude, Db::FETCH_ASSOC);
             $lftExclude = $rowExclude['lft'];
             $rgtExclude = $rowExclude['rgt'];
         }
@@ -966,7 +966,7 @@ class NestedSetModel extends Behavior implements BehaviorInterface
 
         $sqlItems .= ' ORDER BY node.lft ';
 
-        $rows = $this->_db->fetchAll($sqlItems, PDb::FETCH_ASSOC);
+        $rows = $this->_db->fetchAll($sqlItems, Db::FETCH_ASSOC);
 
         $dataArr = [];
         if($rows && isset($rowExclude) && isset($lftExclude) && isset($rgtExclude)) {

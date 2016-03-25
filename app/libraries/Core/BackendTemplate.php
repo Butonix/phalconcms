@@ -6,8 +6,8 @@
 namespace Core;
 
 use Phalcon\Di;
-use Phalcon\Events\Event as PEvent;
-use Phalcon\Mvc\View as PView;
+use Phalcon\Events\Event;
+use Phalcon\Mvc\View;
 use Core\Forms\FormFilter;
 use Core\Utilities\ToolbarHelper;
 
@@ -31,8 +31,8 @@ class BackendTemplate
     /**
      * After render view
      *
-     * @param PEvent $event
-     * @param PView $view
+     * @param Event $event
+     * @param View $view
      */
     public function afterRender($event, $view)
     {
@@ -42,9 +42,9 @@ class BackendTemplate
     /**
      * Before render
      *
-     * @param PEvent $event
-     * @param PView $view
-     * @return PView
+     * @param Event $event
+     * @param View $view
+     * @return View
      */
     public function beforeRender($event, $view)
     {
@@ -62,9 +62,9 @@ class BackendTemplate
     /**
      * Before render view
      *
-     * @param PEvent $event
-     * @param PView $view
-     * @return PView
+     * @param Event $event
+     * @param View $view
+     * @return View
      */
     public function beforeRenderView($event, $view)
     {

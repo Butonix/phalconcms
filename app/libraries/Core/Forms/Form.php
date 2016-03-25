@@ -11,7 +11,7 @@ use Phalcon\Forms\Element\TextArea;
 use Phalcon\Forms\Form as FForm;
 use Phalcon\Validation\Validator\InclusionIn;
 use Phalcon\Validation\Validator\StringLength;
-use Phalcon\Forms\ElementInterface as FElementInterface;
+use Phalcon\Forms\ElementInterface;
 
 class Form extends FForm
 {
@@ -329,12 +329,12 @@ class Form extends FForm
     /**
      * Add element to form
      *
-     * @param FElementInterface $element
+     * @param ElementInterface $element
      * @param string $position
      * @param bool $type If $type is TRUE, the element wile add before $position, else is after
      * @return \Core\Forms\Form
      */
-    public function add(FElementInterface $element, $position = null, $type = null)
+    public function add(ElementInterface $element, $position = null, $type = null)
     {
         if($this->bootstrap) {
             $class = $element->getAttribute("class");

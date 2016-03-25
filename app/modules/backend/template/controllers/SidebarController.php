@@ -7,7 +7,7 @@ namespace Backend\Template\Controllers;
 
 use Phalcon\Di;
 use Phalcon\Exception;
-use Phalcon\Http\Response as PResponse;
+use Phalcon\Http\Response;
 use Core\Models\CoreSidebars;
 use Core\Models\CoreTemplates;
 use Core\Models\CoreWidgets;
@@ -201,7 +201,7 @@ class SidebarController extends BackendController
      */
     public function addNewWidgetAction()
     {
-        $response = new PResponse();
+        $response = new Response();
         $response->setHeader("Content-Type", "application/json");
 
         $content = '';
@@ -257,7 +257,7 @@ class SidebarController extends BackendController
      */
     public function addSaveWidgetAction()
     {
-        $response = new PResponse();
+        $response = new Response();
         $response->setHeader("Content-Type", "application/json");
 
         $content = 0;
@@ -289,7 +289,7 @@ class SidebarController extends BackendController
      */
     public function deleteWidgetAction()
     {
-        $response = new PResponse();
+        $response = new Response();
         $response->setHeader("Content-Type", "application/json");
 
         $content = '';
@@ -310,12 +310,12 @@ class SidebarController extends BackendController
     /**
      * Update widget order
      *
-     * @return PResponse
+     * @return Response
      * @throws Exception
      */
     public function updateWidgetOrderAction()
     {
-        $response = new PResponse();
+        $response = new Response();
         $response->setHeader("Content-Type", "application/json");
 
         $content = '';

@@ -5,9 +5,9 @@
 
 namespace Core;
 
-use Phalcon\Di as PhalconDI;
+use Phalcon\Di;
 use Core\Cache\Cache;
-use Phalcon\Translate\Adapter\NativeArray as NativeArray;
+use Phalcon\Translate\Adapter\NativeArray;
 
 class Translate
 {
@@ -50,7 +50,7 @@ class Translate
      */
     public function __construct()
     {
-        $this->language = PhalconDI::getDefault()->get('config')->website->language;
+        $this->language = Di::getDefault()->get('config')->website->language;
         global $APP_LOCATION;
         if($APP_LOCATION) {
             $cache = Cache::getInstance();
@@ -85,14 +85,14 @@ class Translate
                 $this->translation = array_merge($this->translation, $contentLang);
             } else {
                 if(DEBUG) {
-                    PhalconDI::getDefault()->get('flashSession')->error('Error file translation ' . $filePath);
+                    Di::getDefault()->get('flashSession')->error('Error file translation ' . $filePath);
                 }
                 return false;
             }
             return true;
         }
         if(DEBUG) {
-            PhalconDI::getDefault()->get('flashSession')->warning('File translation not found ' . $filePath);
+            Di::getDefault()->get('flashSession')->warning('File translation not found ' . $filePath);
         }
         return false;
     }

@@ -275,8 +275,8 @@ class Cache
     public static function flush()
     {
         if(is_array(self::$instance)) {
-            foreach(self::$instance as $zCache) {
-                $zCache->cache->flush();
+            foreach(self::$instance as $cache) {
+                $cache->cache->flush();
             }
         }
     }
