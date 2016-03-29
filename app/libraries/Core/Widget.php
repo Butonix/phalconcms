@@ -367,41 +367,41 @@ class Widget
         if($this->validation) {
             if(!$themeName) {
                 /**
-                 * @var CoreTemplates $CoreTemplates
+                 * @var CoreTemplates $coreTemplates
                  */
-                $CoreTemplates = CoreTemplates::findFirst("location = 'frontend' AND published = 1");
-                $themeName = $CoreTemplates->base_name;
+                $coreTemplates = CoreTemplates::findFirst("location = 'frontend' AND published = 1");
+                $themeName = $coreTemplates->base_name;
             }
             /**
-             * @var CoreWidgetValues $CoreWidgetValues
+             * @var CoreWidgetValues $coreWidgetValues
              */
             if((int)$id) {
-                $CoreWidgetValues = CoreWidgetValues::findFirst($id);
+                $coreWidgetValues = CoreWidgetValues::findFirst($id);
             } else {
-                $CoreWidgetValues = new CoreWidgetValues();
+                $coreWidgetValues = new CoreWidgetValues();
             }
 
-            $CoreWidgetValues->reOder('sidebar_base_name = ?0', [0 => $sidebar]);
+            $coreWidgetValues->reOrder('sidebar_base_name = ?0', [0 => $sidebar]);
             $queryUp = "UPDATE core_widget_values SET ordering = ordering + 1 WHERE ordering >= {$ordering} AND theme_name = '{$themeName}' AND sidebar_base_name = '{$sidebar}'";
             $queryDown = "UPDATE core_widget_values SET ordering = ordering - 1 WHERE ordering < {$ordering} AND theme_name = '{$themeName}' AND sidebar_base_name = '{$sidebar}'";
 
             $this->db->execute($queryDown);
             $this->db->execute($queryUp);
 
-            $CoreWidgetValues->sidebar_base_name = $sidebar;
-            $CoreWidgetValues->theme_name = $themeName;
-            $CoreWidgetValues->class_name = $this->_widget_name . '_Widget';
-            $CoreWidgetValues->options = $this->_processOptions($id, $newInstance);
-            $CoreWidgetValues->published = 1;
-            $CoreWidgetValues->ordering = $ordering;
-            $CoreWidgetValues->title = $this->_title;
-            if($CoreWidgetValues->save()) {
+            $coreWidgetValues->sidebar_base_name = $sidebar;
+            $coreWidgetValues->theme_name = $themeName;
+            $coreWidgetValues->class_name = $this->_widget_name . '_Widget';
+            $coreWidgetValues->options = $this->_processOptions($id, $newInstance);
+            $coreWidgetValues->published = 1;
+            $coreWidgetValues->ordering = $ordering;
+            $coreWidgetValues->title = $this->_title;
+            if($coreWidgetValues->save()) {
                 // Do something
             } else {
                 // Do something
             }
-            $this->_id = $CoreWidgetValues->widget_value_id;
-            $CoreWidgetValues->reOder('sidebar_base_name = ?0', [0 => $sidebar]);
+            $this->_id = $coreWidgetValues->widget_value_id;
+            $coreWidgetValues->reOrder('sidebar_base_name = ?0', [0 => $sidebar]);
             return true;
         }
 

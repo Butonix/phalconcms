@@ -1,3 +1,7 @@
 {% extends "../../index.volt" %}
 
-404 Not Found
+{% block content %}
+	<div class="container user-control">
+		404 Not Found
+	</div>
+{% endblock %}

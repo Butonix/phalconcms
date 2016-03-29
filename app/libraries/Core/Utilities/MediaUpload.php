@@ -196,8 +196,8 @@ class MediaUpload
      */
     private function __uploadMedia($file)
     {
-        $baseDir = '/public/media/upload/' . date('Y/m/d') . '/';
-        $dir = ROOT_PATH . $baseDir;
+        $baseDir = '/media/upload/' . date('Y/m/d') . '/';
+        $dir = ROOT_PATH . '/public' . $baseDir;
         if(!is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
@@ -207,7 +207,7 @@ class MediaUpload
             $fileName = generateAlias($segment[0]);
             $filePath = $dir . $fileName . '.' . $extension;
             $i = 0;
-            while (file_exists($filePath)) {
+            while(file_exists($filePath)) {
                 $i++;
                 $filePath = $dir . $fileName . '_' . $i . '.' . $extension;
             }
@@ -215,7 +215,7 @@ class MediaUpload
                 $fileName .= '_' . $i;
             }
             if($file->moveTo($filePath)) {
-                $media = new  Medias();
+                $media = new Medias();
                 $media->assign([
                     'title' => ucfirst(str_replace(['-', '_'], ' ', $fileName)),
                     'mime_type' => $file->getType(),

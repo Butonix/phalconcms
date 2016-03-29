@@ -64,7 +64,7 @@ class ImageHelper
                     $newFile = $imageName . $fileExtension;
 
                     $i = 0;
-                    while (file_exists(ROOT_PATH . '/public/' . $folderImages . DS . $newFile)) {
+                    while(file_exists(ROOT_PATH . '/public/' . $folderImages . DS . $newFile)) {
                         $newFile = $imageName . '_' . $i . $fileExtension;
                         $i++;
                     }

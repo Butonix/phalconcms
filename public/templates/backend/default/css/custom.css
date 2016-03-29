@@ -269,3 +269,31 @@ table.dataTable thead > tr > th {
 .dd-hover > .dd-handle {
     background: #2ea8e5 !important;
 }
+
+.dz-details .actions i {
+	display: inline-block;
+	margin: 0 4px;
+	font-size: 18px;
+	color: white;
+	width: 36px;
+	height: 36px;
+	text-align: center;
+	line-height: 35px;
+	border: 1px solid white;
+	border-radius: 50%;
+	vertical-align: top;
+	-webkit-transition: all 0.25s;
+	-moz-transition: all 0.25s;
+	transition: all 0.25s;
+}
+.dz-details .actions i:hover {
+	background: white;
+	color: #333333;
+}
+.dz-details .actions i.fa-search-plus {
+	font-size: 24px;
+	width: 50px;
+	height: 50px;
+	line-height: 48px;
+	margin-top: -7px;
+}

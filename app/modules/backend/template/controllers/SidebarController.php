@@ -171,23 +171,23 @@ class SidebarController extends BackendController
                 }
 
                 foreach($_sidebars as $s) {
-                    $CoreSidebars = CoreSidebars::findFirst([
+                    $coreSidebars = CoreSidebars::findFirst([
                         'conditions' => 'sidebar_base_name = ?1 AND theme_name = ?2',
                         'bind' => [1 => $s['baseName'], 2 => $defaultTemplate]
                     ]);
 
-                    if(is_object($CoreSidebars) && isset($CoreSidebars->sidebar_base_name)) {
-                        $CoreSidebars->sidebar_base_name = $s['baseName'];
-                        $CoreSidebars->save();
+                    if(is_object($coreSidebars) && isset($coreSidebars->sidebar_base_name)) {
+                        $coreSidebars->sidebar_base_name = $s['baseName'];
+                        $coreSidebars->save();
                     } else {
-                        $CoreSidebars = new CoreSidebars();
-                        $CoreSidebars->sidebar_base_name = $s['baseName'];
-                        $CoreSidebars->theme_name = $defaultTemplate;
-                        $CoreSidebars->sidebar_name = $s['name'];
-                        $CoreSidebars->ordering = 0;
-                        $CoreSidebars->published = 1;
-                        $CoreSidebars->location = 'frontend';
-                        $CoreSidebars->save();
+                        $coreSidebars = new CoreSidebars();
+                        $coreSidebars->sidebar_base_name = $s['baseName'];
+                        $coreSidebars->theme_name = $defaultTemplate;
+                        $coreSidebars->sidebar_name = $s['name'];
+                        $coreSidebars->ordering = 0;
+                        $coreSidebars->published = 1;
+                        $coreSidebars->location = 'frontend';
+                        $coreSidebars->save();
                     }
                 }
             }
@@ -219,20 +219,20 @@ class SidebarController extends BackendController
             $index = $this->request->getPost('index', 'int', 1);
             $sidebar_name = $this->request->getPost('sidebar_name', 'string', '');
 
-            $CoreSidebars = CoreSidebars::findFirst([
+            $coreSidebars = CoreSidebars::findFirst([
                 'conditions' => 'sidebar_base_name = ?1 AND theme_name = ?2 AND location = ?3',
                 'bind' => [1 => $sidebar_name, 2 => $theme_name, 3 => 'frontend']
             ]);
 
-            if(!$CoreSidebars) {
-                $CoreSidebars = new CoreSidebars();
-                $CoreSidebars->sidebar_base_name = $sidebar_name;
-                $CoreSidebars->theme_name = $theme_name;
-                $CoreSidebars->location = 'frontend';
-                $CoreSidebars->save();
+            if(!$coreSidebars) {
+                $coreSidebars = new CoreSidebars();
+                $coreSidebars->sidebar_base_name = $sidebar_name;
+                $coreSidebars->theme_name = $theme_name;
+                $coreSidebars->location = 'frontend';
+                $coreSidebars->save();
             }
 
-            if(is_object($CoreSidebars) && $CoreSidebars) {
+            if(is_object($coreSidebars) && $coreSidebars) {
                 try {
                     /**
                      * @var Widget $widget
@@ -329,18 +329,18 @@ class SidebarController extends BackendController
                  */
                 $widget = CoreWidgetValues::findFirst($widget_id);
                 /**
-                 * @var CoreSidebars $CoreSidebars
+                 * @var CoreSidebars $coreSidebars
                  */
-                $CoreSidebars = CoreSidebars::findFirst(['conditions' => 'sidebar_base_name = ?1', 'bind' => [1 => $sidebar]]);
+                $coreSidebars = CoreSidebars::findFirst(['conditions' => 'sidebar_base_name = ?1', 'bind' => [1 => $sidebar]]);
 
-                if($widget && $CoreSidebars) {
+                if($widget && $coreSidebars) {
                     /**
                      * @var CoreTemplates $defaultFrontendTemplate
                      */
                     $defaultFrontendTemplate = CoreTemplates::findFirst("location = 'frontend' AND published = 1");
                     $themeName = $defaultFrontendTemplate->base_name;
-                    $widget->reOder('sidebar_base_name = ?1', [1 => $CoreSidebars->sidebar_base_name]);
-                    $widget->reOder('sidebar_base_name = ?1', [1 => $widget->sidebar_base_name]);
+                    $widget->reOrder('sidebar_base_name = ?1', [1 => $coreSidebars->sidebar_base_name]);
+                    $widget->reOrder('sidebar_base_name = ?1', [1 => $widget->sidebar_base_name]);
 
                     if($widget->ordering > $newIndex) {
                         $queryUp = "UPDATE core_widget_values SET ordering = ordering + 1 WHERE ordering >= {$newIndex} AND theme_name = '{$themeName}' AND sidebar_base_name = '{$sidebar}'";
@@ -356,11 +356,11 @@ class SidebarController extends BackendController
                     }
 
                     $widget->ordering = $newIndex;
-                    $widget->sidebar_base_name = $CoreSidebars->sidebar_base_name;
+                    $widget->sidebar_base_name = $coreSidebars->sidebar_base_name;
                     if($widget->save()) {
                         $content = '1';
-                        $widget->reOder('sidebar_base_name = ?1', [1 => $sidebar]);
-                        $widget->reOder('sidebar_base_name = ?1', [1 => $CoreSidebars->sidebar_base_name]);
+                        $widget->reOrder('sidebar_base_name = ?1', [1 => $sidebar]);
+                        $widget->reOrder('sidebar_base_name = ?1', [1 => $coreSidebars->sidebar_base_name]);
                     }
                 }
             }

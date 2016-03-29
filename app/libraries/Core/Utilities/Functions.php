@@ -25,7 +25,7 @@ function crypto_rand_secure($min, $max)
     do {
         $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
         $rnd = $rnd & $filter;
-    } while ($rnd >= $range);
+    } while($rnd >= $range);
     return $min + $rnd;
 }
 
@@ -109,7 +109,7 @@ function seo_header_prefix()
  */
 function remove_multi_space($str)
 {
-    while (strpos($str, '  ') !== false) {
+    while(strpos($str, '  ') !== false) {
         $str = str_replace('  ', ' ', $str);
     }
     return $str;
@@ -483,7 +483,7 @@ function recurse_copy($source, $destination)
 {
     $dir = opendir($source);
     @mkdir($destination);
-    while (false !== ($file = readdir($dir))) {
+    while(false !== ($file = readdir($dir))) {
         if(($file != '.') && ($file != '..')) {
             if(is_dir($source . '/' . $file)) {
                 recurse_copy($source . '/' . $file, $destination . '/' . $file);
@@ -745,7 +745,7 @@ function generateAlias($str, $space_character = '-', $length = 255)
         $space_character,
         strtolower(
             trim(
-                preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', iconv('UTF-8', 'ASCII// TRANSLIT', $str)),
+                preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', iconv('UTF-8', 'ASCII//TRANSLIT', $str)),
                 $space_character
             )
         ));

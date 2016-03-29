@@ -1,6 +1,7 @@
 .idea
 var/cache/*
 var/logs/*
+var/backup/*
 public/_install.php
 public/media/menu
 public/media/slide-shows

@@ -1,14 +1,19 @@
 {% extends "../../index.volt" %}
 
+{% block css_header %}
+	<link rel="stylesheet" href="{{ _baseUri }}/plugins/dropzone/min/dropzone.min.css">
+{% endblock %}
+
 {% block content %}
-    {% set status = '{{statusText}}' %}
     <div class="content">
         <form id="uploadFile" action="{{ _baseUri }}/admin/media/manager/uploadImage/" class="dropzone" enctype="multipart/form-data"></form>
     </div>
-	
-    <script src="{{ _baseUri }}/plugins/dropzone/min/dropzone.min.js"></script>
-    <link rel="stylesheet" href="{{ _baseUri }}/plugins/dropzone/min/dropzone.min.css">
+{% endblock %}
 
+{% block js_footer %}
+	<script src="{{ _baseUri }}/plugins/dropzone/min/dropzone.min.js"></script>
+
+    {% set status = '{{ statusText }}' %}
     <script>
         var errorUpload = [];
         var imageCount = 0;

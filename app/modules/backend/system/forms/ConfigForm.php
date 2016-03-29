@@ -66,9 +66,9 @@ class ConfigForm extends Form
         $timezone = new Select('timezone', array_combine(timezone_identifiers_list(), timezone_identifiers_list()));
         $this->add($timezone);
 
-        // $CoreLanguages = CoreLanguages::find(['columns' => 'language_code, title', 'order' => 'language_code']);
-        $CoreLanguages = CoreLanguages::find(['order' => 'language_code']);
-        $language = new Select('language', $CoreLanguages, ['using' => ['language_code', 'title']]);
+        // $coreLanguages = CoreLanguages::find(['columns' => 'language_code, title', 'order' => 'language_code']);
+        $coreLanguages = CoreLanguages::find(['order' => 'language_code']);
+        $language = new Select('language', $coreLanguages, ['using' => ['language_code', 'title']]);
         $this->add($language);
 
         $limit = new Text('limit');

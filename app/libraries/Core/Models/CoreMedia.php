@@ -37,6 +37,12 @@ class CoreMedia extends Model
      *
      * @var integer
      */
+    public $size;
+
+    /**
+     *
+     * @var integer
+     */
     public $description;
 
     /**
@@ -47,15 +53,9 @@ class CoreMedia extends Model
 
     /**
      *
-     * @var integer
-     */
-    public $size;
-
-    /**
-     *
      * @var string
      */
-    public $alias;
+    public $src;
 
     /**
      *

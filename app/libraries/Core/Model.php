@@ -86,7 +86,7 @@ class Model extends PModel
      * @return bool
      * @throws \Phalcon\Exception
      */
-    public function reOder($where = '', $bind = null)
+    public function reOrder($where = '', $bind = null)
     {
         if(property_exists($this, 'ordering')) {
             $options = [
@@ -126,7 +126,7 @@ class Model extends PModel
      */
     public function moveUp($where = null, $bind = null)
     {
-        $this->reOder();
+        $this->reOrder();
         if(property_exists($this, 'ordering')) {
             $options = [
                 'order' => 'ordering DESC'
@@ -172,7 +172,7 @@ class Model extends PModel
      */
     public function moveDown($where = null, $bind = null)
     {
-        $this->reOder();
+        $this->reOrder();
         if(property_exists($this, 'ordering')) {
             $options = [
                 'order' => 'ordering ASC'
